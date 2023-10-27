@@ -1,3 +1,6 @@
+using ReacipEasy.DatabaseConfiguration;
+using ReacipEasy.Repositories;
+
 namespace ReacipEasy
 {
     public class Program
@@ -7,6 +10,9 @@ namespace ReacipEasy
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.Configure<DbConfiguration>(builder.Configuration.GetSection("MongoDBSettings"));
+            builder.Services.AddSingleton<UsersRepository>();
+            builder.Services.AddSingleton<RecipesRepository>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
